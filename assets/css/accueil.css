@@ -1,0 +1,104 @@
+/* =========================
+   PUBLICATIONS
+   ========================= */
+
+.publications-section {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 60px 30px 80px;
+}
+
+.publications-header {
+    margin-bottom: 30px;
+}
+
+.publications-header h2 {
+    margin: 0 0 8px;
+    color: #111827;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.publications-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+
+/* =========================
+   EMPTY
+   ========================= */
+
+.publications-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 280px;
+    padding: 40px;
+
+    background: #ffffff;
+    border: 1px solid #eef0f4;
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.publications-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 60px;
+    height: 60px;
+    margin-bottom: 18px;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+    color: #9ca3af;
+
+    font-size: 25px;
+}
+
+.publications-empty h3 {
+    margin: 0 0 8px;
+    color: #374151;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.publications-empty p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+
+@media (max-width: 700px) {
+
+    .publications-section {
+        padding: 45px 20px 60px;
+    }
+
+    .publications-header h2 {
+        font-size: 24px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .publications-section {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+
+}

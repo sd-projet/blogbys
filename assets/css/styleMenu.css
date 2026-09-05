@@ -1,0 +1,205 @@
+/* =========================
+   DESIGN PAGES PUBLIQUES
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body.public-page {
+    margin: 0;
+    font-family: "Open Sans", Arial, sans-serif;
+    background: #f5f7fb;
+    color: #212529;
+}
+
+/* =========================
+   NAVBAR
+   ========================= */
+
+.public-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 70px;
+    padding: 0 6%;
+
+    background: #2c3e50;
+    border-bottom: 1px solid #e9ecef;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.public-logo img {
+    height: 45px;
+    width: auto;
+    display: block;
+}
+
+.public-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.public-nav-links a {
+    padding: 10px 16px;
+
+    text-decoration: none;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 8px;
+
+    transition: all 0.2s ease;
+}
+
+.public-nav-links a:hover {
+    color: #42cabc;
+    background: #f1f2ff;
+}
+
+.public-nav-links a.active {
+    color: #42cabc;
+    background: #f1f2ff;
+}
+
+.public-nav-links a.register {
+    color: white;
+    background: #42cabc;
+}
+
+.public-nav-links a.register:hover {
+    background: #42cabc;
+    color: white;
+}
+
+/* =========================
+   HERO
+   ========================= */
+
+.public-hero {
+    padding: 90px 20px 80px;
+
+    text-align: center;
+
+    background: #ffffff;
+}
+
+.public-hero h1 {
+    margin: 0 0 18px;
+
+    color: #212529;
+
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.public-hero h1 span {
+    color: #42cabc;
+}
+
+.public-hero p {
+    max-width: 700px;
+    margin: 0 auto 30px;
+
+    color: #6c757d;
+
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 22px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.hero-button.primary {
+    color: #ffffff;
+    background: #42cabc;
+}
+
+.hero-button.primary:hover {
+    color: #ffffff;
+    background: #35b7a9;
+    text-decoration: none;
+}
+
+.hero-button.secondary {
+    color: #2c3e50;
+    background: #ffffff;
+    border: 1px solid #dfe3e8;
+}
+
+.hero-button.secondary:hover {
+    color: #42cabc;
+    border-color: #42cabc;
+    text-decoration: none;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+
+
+@media (max-width: 600px) {
+
+    .public-navbar {
+        height: auto;
+        padding: 15px 20px;
+
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .public-nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .public-hero {
+        padding: 55px 20px 40px;
+    }
+
+    .public-hero h1 {
+        font-size: 32px;
+    }
+
+    .public-hero p {
+        font-size: 15px;
+    }
+
+    .publications-grid {
+        grid-template-columns: 1fr;
+    }
+}
