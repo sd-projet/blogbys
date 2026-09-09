@@ -4,7 +4,7 @@ session_start();
 
 require("../../BaseDonnee/connect.php");
 
-$bdd = new PDO(
+/*$bdd = new PDO(
     "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
     $login,
     $password,
@@ -12,7 +12,7 @@ $bdd = new PDO(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]
-);
+);*/
 
 /*
  * Vérification de la connexion

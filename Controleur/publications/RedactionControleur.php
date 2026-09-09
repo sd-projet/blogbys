@@ -4,16 +4,6 @@ session_start();
 
 require("../../BaseDonnee/connect.php");
 
-$bdd = new PDO(
-    "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-    $login,
-    $password,
-    [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]
-);
-
 /*
  * Vérification de la connexion
  */
@@ -187,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          * complète de l'image.
                          */
 
-                        $ins = $bdd->prepare(
+                       /* $ins = $bdd->prepare(
                             'INSERT INTO publications
                             (
                                 titre,
@@ -196,12 +186,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 id_memb
                             )
                             VALUES (?, ?, NOW(), ?)'
+                        );*/
+
+                        $ins = $bdd->prepare(
+                            'INSERT INTO publications
+                            (
+                                titre,
+                                contenu,
+                                date_time_publication,
+                                date_time_edition,
+                                id_memb
+                            )
+                            VALUES (?, ?, NOW(), NOW(), ?)'
                         );
 
                         $ins->execute([
                             $publication_titre,
                             $publication_contenu,
-                            $id_utilisateur
+                            $id_utilisateur,
                         ]);
 
 
