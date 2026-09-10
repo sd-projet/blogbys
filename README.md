@@ -2,7 +2,7 @@
 
 > Application web de type réseau social permettant aux utilisateurs de créer un compte, publier du contenu et interagir avec la communauté.
 
-🔗 **Démo en ligne :** URL Render
+🔗 **Démo en ligne :** [Voir le site](https://blogbys.onrender.com)
 
 ---
 
