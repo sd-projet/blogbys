@@ -118,7 +118,10 @@
 
                                             <img
                                                 id="image-preview"
-                                                src="../../miniatures/<?= (int) $edit_publication['id_photo'] ?>.jpg"
+                                                src="<?= !empty($edit_publication['miniature'])
+                                                    ? htmlspecialchars($edit_publication['miniature'])
+                                                    : '../../miniatures/' . (int) $edit_publication['id_photo'] . '.jpg'
+                                                ?>"
                                                 alt="Image actuelle"
                                                 style="max-width: 250px; max-height: 200px;"
                                                 class="img-thumbnail"

@@ -124,12 +124,13 @@
                     <?php while ($a = $publications->fetch()): ?>
 
                         <article class="feed-card">
-
                             <!-- Image -->
                             <div class="feed-image-container">
-
-                                <img
-                                    src="../../miniatures/<?= (int) $a['id_photo'] ?>.jpg"
+                               <img
+                                    src="<?= !empty($a['miniature'])
+                                        ? htmlspecialchars($a['miniature'], ENT_QUOTES, 'UTF-8')
+                                        : '../../miniatures/' . (int) $a['id_photo'] . '.jpg'
+                                    ?>"
                                     alt="<?= htmlspecialchars(
                                         $a['titre'],
                                         ENT_QUOTES,
@@ -137,16 +138,12 @@
                                     ) ?>"
                                     class="feed-image"
                                 >
-
                             </div>
-
 
                             <!-- Informations -->
                             <div class="feed-content">
-
                                 <!-- Auteur -->
                                 <div class="feed-author">
-
                                     <div class="feed-author-icon">
                                         <i class="feather icon-user"></i>
                                     </div>

@@ -3,6 +3,7 @@
 session_start();
 
 require("../../BaseDonnee/connect.php");
+require("../../BaseDonnee/cloudinary.php");
 
 /*
  * Vérification de la connexion
@@ -177,16 +178,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          * complète de l'image.
                          */
 
-                       /* $ins = $bdd->prepare(
-                            'INSERT INTO publications
-                            (
-                                titre,
-                                contenu,
-                                date_time_publication,
-                                id_memb
-                            )
-                            VALUES (?, ?, NOW(), ?)'
-                        );*/
 
                         $ins = $bdd->prepare(
                             'INSERT INTO publications
@@ -219,47 +210,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          * Enregistrement de l'image
                          */
 
-                        $destination =
-                            __DIR__ .
-                            '/../../miniatures/' .
-                            $lastid .
-                            '.jpg';
-                        if (
-                            move_uploaded_file(
-                                $fichier['tmp_name'],
-                                $destination
-                            )
-                        ) {
+                        try {
 
+                            $resultatCloudinary = $cloudinary
+                                ->uploadApi()
+                                ->upload(
+                                    $fichier['tmp_name'],
+                                    [
+                                        'folder' => 'blogbys/articles',
+                                    ]
+                                );
 
-                            /*
-                             * Publication créée
-                             * avec succès
-                             */
+                            $donneesCloudinary = $resultatCloudinary->getArrayCopy();
 
-                            header(
-                                'Location: publication.php'
+                            $urlImage = $donneesCloudinary['secure_url'];
+                            $publicIdImage = $donneesCloudinary['public_id'];
+
+                            $update = $bdd->prepare(
+                                'UPDATE publications
+                                SET miniature = ?,
+                                    miniature_public_id = ?
+                                WHERE id_photo = ?
+                                AND id_memb = ?'
                             );
 
+                            $update->execute([
+                                $urlImage,
+                                $publicIdImage,
+                                $lastid,
+                                $id_utilisateur
+                            ]);
+
+                            header('Location: publication.php');
                             exit;
 
-
-                        } else {
-
-
-                            /*
-                             * L'image n'a pas pu être
-                             * enregistrée.
-                             *
-                             * On supprime donc la publication
-                             * créée afin d'éviter une publication
-                             * sans image.
-                             */
+                        } catch (\Throwable $e) {
 
                             $suppression = $bdd->prepare(
                                 'DELETE FROM publications
-                                 WHERE id_photo = ?
-                                 AND id_memb = ?'
+                                WHERE id_photo = ?
+                                AND id_memb = ?'
                             );
 
                             $suppression->execute([
@@ -349,6 +339,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             */
 
             if ($message === null) {
+
                 /*
                 * Remplacement de l'image
                 * uniquement si une nouvelle
@@ -357,23 +348,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($nouvelle_image) {
 
-                    $destination =
-                        __DIR__ .
-                        '/../../miniatures/' .
-                        $edit_id .
-                        '.jpg';
+                    try {
 
-                    if (
-                        move_uploaded_file(
-                            $fichier['tmp_name'],
-                            $destination
-                        )
-                    ) {
+                        $ancienPublicId = $edit_publication['miniature_public_id'];
+                        
+                        $resultatCloudinary = $cloudinary
+                            ->uploadApi()
+                            ->upload(
+                                $fichier['tmp_name'],
+                                [
+                                    'folder' => 'blogbys/articles',
+                                ]
+                            );
 
+                        $donneesCloudinary =
+                            $resultatCloudinary->getArrayCopy();
+
+                        $urlImage =
+                            $donneesCloudinary['secure_url'];
+                        
+                        $publicIdImage =
+                            $donneesCloudinary['public_id'];
+                        
                         $update = $bdd->prepare(
                             'UPDATE publications
                             SET titre = ?,
                                 contenu = ?,
+                                miniature = ?,
+                                miniature_public_id = ?,
                                 date_time_edition = NOW()
                             WHERE id_photo = ?
                             AND id_memb = ?'
@@ -382,16 +384,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $update->execute([
                             $publication_titre,
                             $publication_contenu,
+                            $urlImage,
+                            $publicIdImage,
                             $edit_id,
                             $id_utilisateur
                         ]);
 
+                        /*
+                        * Suppression de l'ancienne image
+                        * sur Cloudinary
+                        */
+                        if (!empty($ancienPublicId)) {
+
+                            try {
+
+                                $cloudinary
+                                    ->uploadApi()
+                                    ->destroy(
+                                        $ancienPublicId,
+                                        [
+                                            'resource_type' => 'image',
+                                        ]
+                                    );
+
+                            } catch (\Throwable $e) {
+                                // La nouvelle image est déjà enregistrée.
+                                // On ne bloque pas la modification.
+                            }
+                        }
+
                         header('Location: publication.php');
                         exit;
 
-                    } else {
+                    } catch (\Throwable $e) {
 
-                        $message = "Impossible de remplacer l'image.";
+                        $message =
+                            "Impossible d'enregistrer la nouvelle image.";
                     }
 
                 } else {
@@ -424,13 +452,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-/*
- * =========================
- * AFFICHAGE DU FORMULAIRE
- * =========================
- */
+    /*
+    * =========================
+    * AFFICHAGE DU FORMULAIRE
+    * =========================
+    */
 
-require(
+    require(
     "../../Vue/publications/redaction.php"
-);
+    );
 ?>

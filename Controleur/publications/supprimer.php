@@ -4,16 +4,7 @@ session_start();
 
 require("../../BaseDonnee/connect.php");
 require("../../BaseDonnee/csrf.php");
-
-/*$bdd = new PDO(
-    "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-    $login,
-    $password,
-    [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]
-);*/
+require("../../BaseDonnee/cloudinary.php");
 
 /*
  * Vérification de la connexion
@@ -52,7 +43,7 @@ $id_utilisateur = (int) $_SESSION['id'];
  * bien à l'utilisateur connecté.
  */
 $requete = $bdd->prepare(
-    'SELECT id_photo
+    'SELECT id_photo, miniature_public_id
      FROM publications
      WHERE id_photo = ?
      AND id_memb = ?'
@@ -84,8 +75,28 @@ $suppr->execute([
     $id_utilisateur
 ]);
 
+if (!empty($publication['miniature_public_id'])) {
+
+    try {
+
+        $cloudinary
+            ->uploadApi()
+            ->destroy(
+                $publication['miniature_public_id'],
+                [
+                    'resource_type' => 'image',
+                ]
+            );
+
+    } catch (\Throwable $e) {
+        // La publication est déjà supprimée.
+        // On ne bloque pas la redirection.
+    }
+}
+
 /*
- * Suppression de l'image associée
+ * Suppression de l'ancienne image locale
+ * si elle existe encore.
  */
 $image = '../../miniatures/' . $suppr_id . '.jpg';
 

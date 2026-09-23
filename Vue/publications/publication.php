@@ -160,9 +160,11 @@
                         <!-- IMAGE -->
 
                         <div class="publication-image-container">
-
                             <img
-                                src="../../miniatures/<?= (int) $a['id_photo'] ?>.jpg"
+                                src="<?= !empty($a['miniature'])
+                                    ? htmlspecialchars($a['miniature'], ENT_QUOTES, 'UTF-8')
+                                    : '../../miniatures/' . (int) $a['id_photo'] . '.jpg'
+                                ?>"
                                 alt="<?= htmlspecialchars(
                                     $a['titre'],
                                     ENT_QUOTES,
@@ -170,16 +172,11 @@
                                 ) ?>"
                                 class="publication-image"
                             >
-
                         </div>
 
-
                         <!-- CONTENU -->
-
                         <div class="publication-content">
-
                             <h2 class="publication-title">
-
                                 <?= htmlspecialchars(
                                     $a['titre'],
                                     ENT_QUOTES,
@@ -187,7 +184,6 @@
                                 ) ?>
 
                             </h2>
-
                             <p>
 
                                 <?= htmlspecialchars(

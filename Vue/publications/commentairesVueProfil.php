@@ -210,14 +210,16 @@
                 <div class="publication-detail-image">
 
                     <img
-                        src="../../miniatures/<?= (int) $publication['id_photo'] ?>.jpg"
+                        src="<?= !empty($publication['miniature'])
+                            ? htmlspecialchars($publication['miniature'], ENT_QUOTES, 'UTF-8')
+                            : '../../miniatures/' . (int) $publication['id_photo'] . '.jpg'
+                        ?>"
                         alt="<?= htmlspecialchars(
                             $publication['titre'],
                             ENT_QUOTES,
                             'UTF-8'
                         ) ?>"
                     >
-
                 </div>
 
                 <!-- Informations -->

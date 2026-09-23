@@ -1,5 +1,6 @@
 <?php
 
+
 $host = getenv('DB_HOST') ?: 'localhost';
 $port = getenv('DB_PORT') ?: '3306';
 $login = getenv('DB_USERNAME') ?: 'root';
@@ -13,6 +14,36 @@ $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ];
+
+$envFile = dirname(__DIR__) . '/.env';
+
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    foreach ($lines as $line) {
+        $line = trim($line);
+
+        if ($line === '' || str_starts_with($line, '#')) {
+            continue;
+        }
+
+        [$name, $value] = array_pad(
+            explode('=', $line, 2),
+            2,
+            ''
+        );
+
+        $name = trim($name);
+        $value = trim($value);
+
+        if (
+            $name !== '' &&
+            getenv($name) === false
+        ) {
+            putenv($name . '=' . $value);
+        }
+    }
+}
 
 /*
  * Connexion locale : XAMPP / MariaDB

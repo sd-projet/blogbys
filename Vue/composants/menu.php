@@ -9,62 +9,107 @@ $nombreNonLus = getNombreMessagesNonLus(
 
 ?>
 
-<nav class="pcoded-navbar  ">
-    <div class="navbar-wrapper  ">
-        <div class="navbar-content scroll-div " >
+<nav class="pcoded-navbar">
+    <div class="navbar-wrapper">
+        <div class="navbar-content scroll-div">
             <div class="">
 
                 <div class="collapse" id="nav-user-link">
                     <ul class="list-unstyled">
-                        <li class="list-group-item"><a href="user-profile.html"><i class="feather icon-user m-r-5"></i>Voir le profil</a></li>
-                        <li class="list-group-item"><a href="auth-normal-sign-in.html"><i class="feather icon-log-out m-r-5"></i>Déconnexion</a></li>
+                        <li class="list-group-item">
+                            <a href="../../Controleur/compte/profil.php" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-user m-r-5"></i>
+                                </span>
+                                <span class="pcoded-mtext">
+                                    Voir le profil
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="list-group-item">
+                             <a href="../../Controleur/compte/deconnexion.php" class="nav-link">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-log-out m-r-5"></i>
+                                </span>
+                                <span class="pcoded-mtext">
+                                    Me déconnecter
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
+
             </div>
-            <ul class="nav pcoded-inner-navbar ">
+
+            <ul class="nav pcoded-inner-navbar">
+
+                <!-- PROFIL -->
                 <li class="nav-item pcoded-menu-caption">
                     <label>Profil</label>
                 </li>
+
                 <li class="nav-item">
-                    <a href="../../Controleur/compte/profil.php" class="nav-link ">
-							<span class="pcoded-micon">
-								<i class="feather icon-home"></i>
-							</span><span class="pcoded-mtext">Mes informations</span>
+                    <a href="../../Controleur/compte/profil.php" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-user"></i>
+                        </span>
+                        <span class="pcoded-mtext">
+                            Mes informations
+                        </span>
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a href="../../Controleur/compte/editionprofil.php" class="nav-link ">
-							<span class="pcoded-micon">
-								<i class="feather icon-layout"></i></span>
-                        <span class="pcoded-mtext">Modifier mes informations</span>
+                    <a href="../../Controleur/compte/editionprofil.php" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-edit"></i>
+                        </span>
+                        <span class="pcoded-mtext">
+                            Modifier mes informations
+                        </span>
                     </a>
                 </li>
+
+
+                <!-- PUBLICATIONS -->
                 <li class="nav-item pcoded-menu-caption">
                     <label>Publications</label>
                 </li>
+
                 <li class="nav-item">
-                    <a href="../../Controleur/publications/publication.php" class="nav-link ">
-							<span class="pcoded-micon">
-								<i class="feather icon-box"></i>
-							</span><span class="pcoded-mtext">Mes publications</span>
+                    <a href="../../Controleur/publications/publication.php" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-file-text"></i>
+                        </span>
+                        <span class="pcoded-mtext">
+                            Mes publications
+                        </span>
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a href="../../Controleur/publications/actu.php" class="nav-link ">
-							<span class="pcoded-micon">
-								<i class="feather icon-box"></i>
-							</span><span class="pcoded-mtext">Fil d'actualité</span>
+                    <a href="../../Controleur/publications/actu.php" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-globe"></i>
+                        </span>
+                        <span class="pcoded-mtext">
+                            Fil d'actualité
+                        </span>
                     </a>
                 </li>
+
+                <!-- MESSAGES -->
                 <li class="nav-item pcoded-menu-caption">
                     <label>Messages</label>
                 </li>
 
                 <li class="nav-item">
-                    <a href="../../Controleur/messages/reception.php" class="nav-link ">
-						<span class="pcoded-micon">
-							<i class="feather icon-file-text"></i>
-						</span>
+                    <a href="../../Controleur/messages/reception.php" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-mail"></i>
+                        </span>
+
                         <span class="pcoded-mtext">
                             Mes messages
 
@@ -78,17 +123,23 @@ $nombreNonLus = getNombreMessagesNonLus(
                     </a>
                 </li>
 
+
+                <!-- DECONNEXION -->
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Deconnexion</label>
+                    <label>Déconnexion</label>
                 </li>
+
                 <li class="nav-item">
-                    <a href="../../Controleur/compte/deconnexion.php" class="nav-link ">
-							<span class="pcoded-micon">
-								<i class="feather icon-file-text"></i>
-							</span>
-                        <span class="pcoded-mtext">Me déconnecter</span>
+                    <a href="../../Controleur/compte/deconnexion.php" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-log-out"></i>
+                        </span>
+                        <span class="pcoded-mtext">
+                            Me déconnecter
+                        </span>
                     </a>
                 </li>
+
             </ul>
         </div>
     </div>

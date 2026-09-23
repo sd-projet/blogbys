@@ -68,14 +68,36 @@ $requete->execute([$id_utilisateur]);
 
 $articles = $requete->fetchAll();
 
-foreach ($articles as &$article) {
+/*foreach ($articles as &$article) {
     $article['utilisateur_connecte'] = $utilisateur_connecte;
     $article['classe_like'] = !empty($article['utilisateur_aime'])
     ? 'liked'
     : '';
 }
-unset($article);
+unset($article);*/
 
+foreach ($articles as &$article) {
+
+    $article['utilisateur_connecte'] = $utilisateur_connecte;
+
+    $article['classe_like'] = !empty($article['utilisateur_aime'])
+        ? 'liked'
+        : '';
+
+    /*
+     * Image de la publication
+     *
+     * Nouvelle publication :
+     * → URL Cloudinary
+     *
+     * Ancienne publication :
+     * → ancienne image locale
+     */
+    $article['image'] = !empty($article['miniature'])
+        ? $article['miniature']
+        : '../miniatures/' . $article['id_photo'] . '.jpg';
+}
+unset($article);
 
 $nombrePublications = count($articles);
 

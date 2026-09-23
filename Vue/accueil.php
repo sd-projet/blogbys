@@ -109,7 +109,7 @@
                 <div class="feed-image-container">
 
                     <img
-                        src="../miniatures/[articles.id_photo].jpg"
+                        src="[articles.image]"
                         alt="[articles.titre]"
                         class="feed-image"
                     >
